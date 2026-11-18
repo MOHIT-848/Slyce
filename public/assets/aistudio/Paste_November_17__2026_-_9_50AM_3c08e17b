@@ -1,0 +1,1062 @@
+# BUILD CLIPFORGE AI — COMPLETE FULL-STACK AI VIDEO REPURPOSING AGENT
+
+## YOUR ROLE
+
+Act as an autonomous senior software engineering team consisting of:
+
+1. Senior Full-Stack Developer
+2. AI/ML Engineer
+3. Video Processing Engineer
+4. UI/UX Designer
+5. Backend and Cloud Architect
+6. QA and Testing Engineer
+
+Your task is to BUILD a complete, functional, professional hackathon MVP named CLIPFORGE AI.
+
+Do not just create a frontend mockup or landing page.
+
+Build a working application that accepts an actual video, understands its content, identifies meaningful highlights, creates vertical short videos, generates subtitles, allows editing, and exports downloadable MP4 and SRT files.
+
+I have attached the official ClipForge AI Hackathon Blueprint PDF.
+
+Read the attached document and follow its product vision, requirements, development priorities, and judging strategy.
+
+The application must demonstrate a complete real-world workflow.
+
+==================================================
+1. PRODUCT IDENTITY
+==================================================
+
+Product: ClipForge AI
+
+Tagline: Turn Long Videos Into Powerful Short Stories.
+
+Product Category: Autonomous AI Video Repurposing Agent.
+
+Problem:
+
+Content creators, educators, podcasters, businesses, and video creators spend considerable time watching long videos, finding meaningful moments, cutting clips, resizing videos, and creating subtitles.
+
+Solution:
+
+ClipForge AI automatically understands long-form video content, identifies the most useful and engaging moments, and converts them into editable, ready-to-export vertical short videos.
+
+Core promise:
+
+Upload one long video → AI understands it → finds the best moments → generates multiple short clips → adds subtitles → lets users edit and export.
+
+This is a human-in-the-loop AI agent. Users must review the generated clips before final export.
+
+Do not claim guaranteed virality or automatic audience growth.
+
+==================================================
+2. TECHNOLOGY ARCHITECTURE
+==================================================
+
+Build this application using technologies compatible with Google AI Studio Build Mode.
+
+Frontend:
+- React
+- TypeScript
+- Tailwind CSS
+- Lucide React
+- Framer Motion
+- HTML5 Video Player
+
+Backend:
+- Node.js server runtime provided by Google AI Studio.
+- TypeScript.
+- REST API architecture.
+- Secure server-side Gemini API integration.
+
+AI:
+- Google Gemini API.
+- Google Gen AI SDK.
+- Structured JSON output.
+- Multimodal content understanding.
+- Transcript-based highlight extraction.
+
+Media processing:
+- FFmpeg.
+- FFprobe.
+- Node.js child_process where supported.
+- Use an appropriate FFmpeg package compatible with the runtime.
+- Verify that the FFmpeg binary and required codecs work before depending on them.
+
+If native FFmpeg execution is unavailable in the deployment environment, implement a browser-side FFmpeg WebAssembly fallback where feasible.
+
+Video transcription:
+- Gemini audio understanding or an appropriate supported transcription service.
+- Preserve timestamp information.
+- Process long audio in manageable chunks.
+
+Storage:
+- Temporary local storage for uploaded videos and generated exports.
+- Store job metadata separately.
+- Provide automatic temporary-file cleanup.
+- Avoid requiring external paid storage for the initial demonstration.
+
+Job processing:
+- Background asynchronous processing.
+- Job status tracking.
+- Progress reporting.
+- Retry handling.
+- Error reporting.
+
+Do not introduce unnecessary external infrastructure.
+
+For the hackathon MVP, use a lightweight in-process background job system if Redis is unavailable. Document its single-instance limitations.
+
+Use the current supported Gemini model available in the AI Studio environment. Keep the model configurable.
+
+Use the server-side secret management available in Google AI Studio for GEMINI_API_KEY.
+
+NEVER expose API keys in frontend code.
+
+==================================================
+3. MAIN APPLICATION EXPERIENCE
+==================================================
+
+Create a premium AI SaaS application with the following sections:
+
+A. Landing Page
+B. Main Dashboard
+C. Video Upload
+D. Processing Workspace
+E. AI Highlight Results
+F. Clip Editor
+G. Export Center
+H. Settings and About
+
+The application must have functional navigation.
+
+Every major button must perform its intended action.
+
+==================================================
+4. LANDING PAGE
+==================================================
+
+Create an impressive landing page.
+
+Hero headline:
+
+"Your Long Videos Deserve More Than One Moment."
+
+Subtitle:
+
+"ClipForge AI understands your videos, discovers the moments worth sharing, and transforms them into professional short-form content."
+
+CTA buttons:
+- Start Creating
+- Explore Features
+
+Add:
+- Product introduction.
+- How it works.
+- AI-powered highlight detection.
+- Automatic subtitles.
+- Vertical video generation.
+- Editing and export.
+- Privacy information.
+- Footer.
+
+Use an animated visual showing one long video transforming into multiple short vertical clips.
+
+Do not use fake testimonials, fake statistics, or unsupported claims.
+
+==================================================
+5. MAIN DASHBOARD
+==================================================
+
+Create a professional dark-themed dashboard.
+
+Sidebar:
+- Dashboard
+- New Project
+- My Projects
+- Recent Exports
+- Settings
+- Help
+
+Main dashboard:
+
+Display:
+- Welcome heading.
+- New Project button.
+- Upload Video card.
+- Recent projects.
+- Processing status.
+- Recent exported clips.
+
+Add attractive empty states for new users.
+
+Do not require login for the initial hackathon MVP.
+
+==================================================
+6. VIDEO UPLOAD ENGINE
+==================================================
+
+This is the first essential working feature.
+
+Users must be able to upload their own videos.
+
+Supported formats:
+- MP4
+- MOV
+
+Validate:
+- File extension.
+- Actual MIME type.
+- File size.
+- Video duration.
+- Video readability.
+
+Use a configurable maximum upload size and duration. Target the PDF's example limits of up to 500 MB or 15 minutes, but use a lower tested limit if the runtime cannot safely process that size.
+
+Upload interface:
+- Drag and drop.
+- Browse files.
+- Upload progress.
+- Video filename.
+- File size.
+- Duration.
+- Video thumbnail.
+- Remove uploaded file.
+
+After successful upload, show:
+
+"Video uploaded successfully. Ready for AI analysis."
+
+Create a unique job ID for each uploaded video.
+
+The application must never freeze while processing a video.
+
+==================================================
+7. AI VIDEO UNDERSTANDING PIPELINE
+==================================================
+
+This is the brain of ClipForge AI.
+
+Implement the following stages.
+
+STAGE 1: VIDEO INSPECTION
+
+Use FFprobe or an equivalent verified media inspection method.
+
+Extract:
+- Video duration.
+- Width and height.
+- Frame rate.
+- Audio availability.
+- Video format.
+- Resolution.
+
+STAGE 2: AUDIO EXTRACTION
+
+Use FFmpeg to extract audio.
+
+Convert audio to a suitable format for transcription.
+
+Recommended:
+- Mono audio.
+- 16 kHz sample rate.
+- WAV or another supported format.
+
+Handle videos with no audio gracefully.
+
+STAGE 3: SPEECH TRANSCRIPTION
+
+Use Gemini-supported audio processing or a compatible transcription integration.
+
+Generate a timestamped transcript.
+
+Each transcript segment must contain:
+
+{
+  "start": 0.0,
+  "end": 5.5,
+  "text": "Example spoken sentence",
+  "speaker": null
+}
+
+Requirements:
+- Preserve timestamps.
+- Maintain original video time offsets.
+- Handle longer recordings using chunks.
+- Support English initially.
+- Preserve other detected languages when possible.
+- Never invent spoken words.
+
+Allow users to inspect the transcript.
+
+If exact speech recognition is uncertain, indicate that manual review may be needed.
+
+STAGE 4: TRANSCRIPT CHUNKING
+
+Divide the transcript into overlapping windows.
+
+Suggested window duration:
+30–90 seconds.
+
+Ensure that each window preserves:
+- Original timestamps.
+- Complete sentences.
+- Topic continuity.
+
+STAGE 5: AI HIGHLIGHT DETECTION
+
+Use Gemini to identify self-contained, valuable moments.
+
+Look for:
+- Strong opening hooks.
+- Useful information.
+- Interesting explanations.
+- Questions and answers.
+- Surprising facts.
+- Personal stories.
+- Important conclusions.
+- Memorable statements.
+- Educational takeaways.
+
+Generate a maximum of five initial clip candidates.
+
+Each candidate must contain:
+
+{
+  "start_time": 45.2,
+  "end_time": 88.4,
+  "title": "The Most Important Lesson",
+  "hook": "An engaging opening line",
+  "summary": "A short summary",
+  "transcript_excerpt": "Exact words from the source transcript",
+  "selection_reason": "Why this moment is valuable",
+  "score": 87
+}
+
+Important:
+- Start and end timestamps must be valid.
+- Start and end should preserve complete thoughts.
+- Do not cut sentences unnecessarily.
+- Do not invent dialogue.
+- Do not misrepresent the original speaker.
+- Do not create unsupported claims.
+- Reject invalid or overlapping duplicate candidates.
+
+==================================================
+8. EXPLAINABLE HIGHLIGHT SCORING
+==================================================
+
+Create a transparent scoring engine.
+
+Use this weighted scoring model:
+
+- Completeness: 30%
+- Hook strength: 25%
+- Useful information: 20%
+- Emotional or expressive emphasis: 15%
+- Duration fit: 10%
+
+Calculate an overall score between 0 and 100.
+
+Show the score breakdown.
+
+For every clip, explain why it was selected.
+
+IMPORTANT:
+
+The score represents the quality of the candidate according to our selection criteria.
+
+It is NOT a prediction of viral performance, views, likes, or engagement.
+
+==================================================
+9. AI CLIP GENERATION ENGINE
+==================================================
+
+This is the most important functionality.
+
+The application must convert selected timestamp ranges from the ORIGINAL uploaded video into actual playable MP4 clips.
+
+Do not create fake video previews.
+
+Use FFmpeg or a verified alternative.
+
+Requirements:
+
+- Accurate start time.
+- Accurate end time.
+- Preserve audio.
+- Preserve source content.
+- H.264 video encoding.
+- AAC audio encoding.
+- MP4 output.
+
+Generate vertical 9:16 videos.
+
+Recommended export resolution:
+1080 × 1920.
+
+Use 720 × 1280 as a faster fallback.
+
+For the first implementation, use center crop.
+
+Optional advanced layout:
+- Blurred background fill.
+- Original video centered.
+- Maintain natural proportions.
+
+Avoid stretching or distorting the video.
+
+Create a separate rendering process for each selected candidate.
+
+Allow users to choose which candidates to render.
+
+Limit simultaneous rendering to avoid exhausting memory.
+
+==================================================
+10. AUTOMATIC CAPTION GENERATION
+==================================================
+
+Generate subtitles using the timestamped transcript.
+
+Requirements:
+
+- Subtitle text must match the original speech.
+- Correct start and end timing.
+- Readable font size.
+- High contrast.
+- Safe margins.
+- No text outside the visible video area.
+
+Create three subtitle styles:
+
+1. Classic White
+2. Bold Creator
+3. Minimal Clean
+
+Provide a caption editor where users can:
+
+- Edit subtitle text.
+- Correct transcription errors.
+- Change subtitle timing.
+- Change font size.
+- Change text position.
+- Select subtitle style.
+
+Generate:
+- Editable subtitle data.
+- Downloadable SRT file.
+- Captioned MP4 file.
+
+Implement subtitle burning using FFmpeg when supported.
+
+Verify that the exported video actually contains visible subtitles.
+
+==================================================
+11. CLIP EDITOR
+==================================================
+
+Create a functional clip editor.
+
+Each candidate must display:
+
+- Video preview.
+- Clip title.
+- Start time.
+- End time.
+- Duration.
+- Highlight score.
+- Transcript excerpt.
+- Selection reason.
+
+Editing functionality:
+
+- Adjust start time.
+- Adjust end time.
+- Edit clip title.
+- Edit captions.
+- Preview changes.
+- Re-render the selected clip.
+
+Use input validation to ensure timestamps remain within the original video duration.
+
+Show a confirmation before replacing an existing export.
+
+==================================================
+12. EXPORT CENTER
+==================================================
+
+Build a professional export center.
+
+Users should be able to download:
+
+- Vertical MP4.
+- Captioned MP4.
+- SRT subtitle file.
+
+Display:
+- Export filename.
+- Resolution.
+- Aspect ratio.
+- Duration.
+- File size.
+- Rendering status.
+
+Use real downloadable files.
+
+Do not display download buttons that lead to nonexistent files.
+
+Show an error if an export fails.
+
+==================================================
+13. PROCESSING PROGRESS
+==================================================
+
+Create a visible processing pipeline.
+
+Stages:
+
+1. Video uploaded.
+2. Video inspected.
+3. Audio extracted.
+4. Transcript generated.
+5. AI highlights identified.
+6. Clips prepared.
+7. Subtitles generated.
+8. Final exports rendered.
+
+Display:
+- Current processing stage.
+- Progress indicator.
+- Status messages.
+- Estimated progress only when supported by actual processing data.
+
+Use real backend job states.
+
+Implement polling or another reliable progress mechanism.
+
+If a job fails, show the failed stage and a retry option where safe.
+
+==================================================
+14. BACKEND API
+==================================================
+
+Create functional REST endpoints.
+
+POST /api/videos
+Upload video and create a processing job.
+
+GET /api/jobs/:jobId
+Get processing status and progress.
+
+GET /api/jobs/:jobId/transcript
+Get timestamped transcript.
+
+GET /api/jobs/:jobId/clips
+Get AI-generated clip candidates.
+
+PATCH /api/clips/:clipId
+Edit clip title, timestamps, or captions.
+
+POST /api/clips/:clipId/render
+Render selected clip.
+
+GET /api/exports/:exportId
+Download the actual generated export.
+
+DELETE /api/jobs/:jobId
+Delete project and temporary files.
+
+GET /api/health
+Check server status.
+
+Use:
+- Proper request validation.
+- Typed response schemas.
+- Safe error handling.
+- File size limits.
+- Unique identifiers.
+- Secure temporary file handling.
+- API timeouts.
+- Rate limiting where practical.
+
+==================================================
+15. DATA MODELS
+==================================================
+
+Create structured data models.
+
+VideoJob:
+- id
+- original_filename
+- duration
+- resolution
+- status
+- progress
+- created_at
+- error_message
+
+TranscriptSegment:
+- id
+- job_id
+- start_seconds
+- end_seconds
+- text
+- speaker_label
+
+ClipCandidate:
+- id
+- job_id
+- start_seconds
+- end_seconds
+- title
+- hook
+- summary
+- transcript_excerpt
+- score
+- score_breakdown
+- selection_reason
+- status
+
+Export:
+- id
+- clip_id
+- file_path
+- resolution
+- aspect_ratio
+- subtitle_file_path
+- render_status
+
+Keep the initial database architecture simple.
+
+Use local temporary metadata persistence for the hackathon prototype if necessary.
+
+Do not require Firebase Authentication or complex account management for the first version.
+
+==================================================
+16. UI/UX DESIGN SYSTEM
+==================================================
+
+Build a premium international AI SaaS interface.
+
+Design inspiration:
+- Linear
+- Vercel
+- Runway
+- Descript
+- Modern AI video editing platforms
+
+Color system:
+
+Background:
+#080B14
+
+Secondary background:
+#101827
+
+Cards:
+#151E2E
+
+Primary accent:
+#7657FF
+
+Secondary accent:
+#20C7D9
+
+Primary text:
+#F8FAFC
+
+Secondary text:
+#94A3B8
+
+Use:
+- Premium typography.
+- Subtle gradients.
+- Smooth transitions.
+- Modern cards.
+- Clean spacing.
+- Professional iconography.
+- Responsive design.
+
+Create a professional dark-themed creative workspace.
+
+Do not make the UI look like a generic chatbot.
+
+The application should feel like a real commercial AI video product.
+
+==================================================
+17. SAMPLE DEMONSTRATION
+==================================================
+
+Prepare a complete demo workflow using a short video owned by our team.
+
+Include:
+
+- One landscape talking-head sample.
+- One tutorial or educational sample.
+
+The demo must show:
+
+1. Actual video upload.
+2. Actual audio extraction.
+3. Timestamped transcription.
+4. Three to five AI-selected clips.
+5. Selection explanations.
+6. Vertical video generation.
+7. Caption generation.
+8. Caption editing.
+9. Actual MP4 download.
+10. SRT download.
+
+Also provide a preloaded sample transcript for UI testing.
+
+Clearly label transcript-only demonstrations as DEMO MODE.
+
+Never pretend that a mock result is a real video-processing result.
+
+==================================================
+18. PRIVACY AND CONTENT RESPONSIBILITY
+==================================================
+
+Build the application with privacy in mind.
+
+- Process only user-owned videos or videos the user has permission to use.
+- Clearly disclose when video/audio content is sent to an external AI provider.
+- Do not scrape videos from YouTube or other platforms.
+- Do not download third-party videos without authorization.
+- Do not automatically publish to social media.
+- Let the creator review every generated clip.
+- Provide project deletion.
+- Delete temporary uploaded files after processing or on user request.
+- Never expose API keys.
+- Do not fabricate dialogue or alter the meaning of the original speaker.
+
+==================================================
+19. ERROR HANDLING AND FALLBACK
+==================================================
+
+Handle these situations:
+
+- Invalid video format.
+- Unsupported codec.
+- No audio track.
+- Large video upload.
+- Upload interruption.
+- Gemini API unavailable.
+- Invalid Gemini JSON response.
+- Transcription failure.
+- Invalid timestamps.
+- FFmpeg unavailable.
+- Rendering failure.
+- Disk storage failure.
+- Network interruption.
+- Export download failure.
+
+Do not crash the application.
+
+Provide understandable error messages.
+
+Implement:
+- Safe retry.
+- Job status updates.
+- Temporary-file cleanup.
+- A prepared demo fallback.
+- A local development run option if available.
+
+==================================================
+20. PERFORMANCE OPTIMIZATION
+==================================================
+
+Optimize the application for a hackathon demonstration.
+
+Priorities:
+
+- Process one test video reliably before supporting arbitrary videos.
+- Use chunked transcription for longer audio.
+- Avoid sending unnecessarily large content to Gemini.
+- Limit the number of generated candidates.
+- Render only selected clips.
+- Avoid loading huge videos into browser memory.
+- Use streaming or disk-backed upload handling where supported.
+- Limit concurrent rendering.
+- Provide progress feedback.
+
+Do not add expensive infrastructure unnecessarily.
+
+==================================================
+21. TESTING REQUIREMENTS
+==================================================
+
+Create automated tests and a manual test checklist.
+
+Test:
+
+1. Valid MP4 upload.
+2. Valid MOV upload.
+3. Invalid file upload.
+4. Video with no audio.
+5. Transcript generation.
+6. Timestamp validation.
+7. Candidate extraction.
+8. Candidate ranking.
+9. Clip boundary editing.
+10. Vertical rendering.
+11. Subtitle generation.
+12. Caption editing.
+13. MP4 export.
+14. SRT export.
+15. Project deletion.
+16. API failure.
+17. Gemini failure.
+18. FFmpeg failure.
+19. Mobile responsiveness.
+20. Complete end-to-end workflow.
+
+The most important acceptance test:
+
+A user uploads an actual video, the system generates at least three valid highlight candidates, the user selects one, the system renders an actual vertical MP4 with subtitles, and the user downloads it successfully.
+
+==================================================
+22. REQUIRED PROJECT STRUCTURE
+==================================================
+
+Create a clean modular structure suitable for Google AI Studio.
+
+Suggested structure:
+
+src/
+  components/
+    dashboard/
+    upload/
+    video/
+    clips/
+    editor/
+    export/
+    ui/
+
+  pages/
+  hooks/
+  services/
+  types/
+  utils/
+
+server/
+  routes/
+  services/
+  workers/
+  media/
+  ai/
+  utils/
+
+storage/
+  uploads/
+  processed/
+  exports/
+
+tests/
+
+Also create:
+- README.md
+- .env.example
+- API documentation
+- Architecture documentation
+- Setup instructions
+
+Adapt this structure to the actual Google AI Studio project environment without breaking its required entry points.
+
+==================================================
+23. IMPLEMENTATION PRIORITIES
+==================================================
+
+Build in the following order.
+
+PHASE 1:
+- Complete frontend structure.
+- Dashboard.
+- Video upload.
+- Backend health endpoint.
+- Upload API.
+
+PHASE 2:
+- FFprobe video inspection.
+- FFmpeg audio extraction.
+- Timestamped transcription.
+
+PHASE 3:
+- Transcript chunking.
+- Gemini highlight extraction.
+- Explainable scoring.
+- Candidate result cards.
+
+PHASE 4:
+- Real video cutting.
+- Vertical 9:16 rendering.
+- Subtitle generation.
+- MP4 and SRT export.
+
+PHASE 5:
+- Clip editing.
+- Caption editing.
+- Progress tracking.
+- Error handling.
+- Mobile responsiveness.
+
+PHASE 6:
+- End-to-end testing.
+- Bug fixing.
+- Performance improvements.
+- Final demo preparation.
+
+Do not build all UI screens first and leave the processing engine incomplete.
+
+By the middle of development, one real uploaded video must successfully produce one playable vertical MP4.
+
+==================================================
+24. FOUR-PERSON TEAM COLLABORATION
+==================================================
+
+Prepare the codebase so four team members can work independently.
+
+Member 1:
+Frontend & UX Lead.
+Owns dashboard, upload interface, clip cards, video player, caption editor, and export screens.
+
+Member 2:
+Backend & Integration Lead.
+Owns server APIs, upload validation, job management, data models, and application integration.
+
+Member 3:
+AI & Video Intelligence Lead.
+Owns Gemini integration, transcription, transcript analysis, candidate extraction, scoring, and AI quality.
+
+Member 4:
+Media Processing, QA & DevOps Lead.
+Owns FFmpeg, vertical rendering, subtitle generation, testing, deployment, and demo preparation.
+
+Document the interface contracts so different team members can work without editing the same components.
+
+==================================================
+25. HACKATHON JUDGING STRATEGY
+==================================================
+
+The application must support a repeatable three-minute demo.
+
+0:00–0:20
+Explain the problem: creators waste time finding highlights and editing short videos.
+
+0:20–0:45
+Upload a team-owned long video.
+
+0:45–1:20
+Show timestamped transcript and AI-selected moments.
+
+1:20–2:20
+Open a generated vertical video, edit a caption or clip boundary, and preview it.
+
+2:20–2:45
+Download the actual MP4 and SRT files.
+
+2:45–3:00
+Explain the technology, impact, limitations, and future roadmap.
+
+Make the demo visual and fast.
+
+Prepare a backup recording and preprocessed demo assets.
+
+==================================================
+26. DEPLOYMENT
+==================================================
+
+Prepare the application for deployment through Google AI Studio's supported deployment workflow.
+
+- Verify frontend build.
+- Verify server-side runtime.
+- Verify Gemini API access.
+- Verify FFmpeg availability in the deployment environment.
+- Verify upload limits.
+- Verify generated file download routes.
+- Verify cleanup and temporary storage limitations.
+
+Use secure server-side secrets.
+
+Document deployment configuration and any cloud billing or resource requirements.
+
+Do not claim deployment is successful until the live application has been tested.
+
+==================================================
+27. FINAL ACCEPTANCE CRITERIA
+==================================================
+
+The project is complete only when:
+
+[ ] Landing page works.
+[ ] Dashboard works.
+[ ] User can upload an actual MP4/MOV video.
+[ ] Backend creates a processing job.
+[ ] Video metadata is extracted.
+[ ] Audio is extracted.
+[ ] Timestamped transcript is generated.
+[ ] Gemini identifies at least three meaningful moments.
+[ ] Each candidate includes a title and explanation.
+[ ] Candidate timestamps are validated.
+[ ] User can review and select candidates.
+[ ] At least one actual vertical MP4 is rendered.
+[ ] Subtitles are generated.
+[ ] User can edit captions.
+[ ] User can adjust clip boundaries.
+[ ] MP4 export works.
+[ ] SRT export works.
+[ ] Download links work.
+[ ] Progress is visible.
+[ ] Errors are handled.
+[ ] Temporary files can be deleted.
+[ ] Application works on mobile and desktop.
+[ ] README and documentation are complete.
+
+==================================================
+28. FINAL DEVELOPMENT INSTRUCTIONS
+==================================================
+
+Start by inspecting the Google AI Studio project environment and its supported server-side capabilities.
+
+Then create the complete application.
+
+Do not stop at a design preview.
+
+Do not create non-functional buttons.
+
+Do not use fake processing progress.
+
+Do not create fake downloadable files.
+
+Do not claim video rendering works until an actual output has been generated and tested.
+
+Do not silently skip a feature because it is difficult.
+
+If a technical limitation prevents a feature, explain it and implement the best verified fallback.
+
+Use the available tools, packages, and server-side runtime intelligently.
+
+After implementing each phase:
+- Run the application.
+- Check the console.
+- Test the API.
+- Fix errors.
+- Verify the actual feature.
+- Preserve working code.
+
+When all phases are complete, provide:
+1. A list of completed features.
+2. A list of features that require manual configuration.
+3. API documentation.
+4. Setup instructions.
+5. Deployment instructions.
+6. Testing results.
+7. Known limitations.
+
+FINAL OBJECTIVE:
+
+Build CLIPFORGE AI as a real, functional, polished AI video repurposing agent.
+
+The final demonstration must prove that an actual long video goes in and actual downloadable short-form videos come out.
+
+Start building now.

@@ -1,0 +1,8 @@
+{
+  "name": "Remix ClipForge AI",
+  "description": "Autonomous long-video to short-form content repurposing agent with timestamped transcription, explainable highlight scoring, vertical 9:16 FFmpeg rendering, and editable captions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

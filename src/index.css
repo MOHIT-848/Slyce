@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: #080B14;
+    color: #F8FAFC;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom subtle dark scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080B14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+@keyframes cfCaptionFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cfCaptionPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.74);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.07);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cfCaptionSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cfCaptionBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.68) translateY(8px);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.13) translateY(-2px);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.97) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-caption-fade {
+  animation: cfCaptionFade 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-caption-pop {
+  animation: cfCaptionPop 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-caption-slide-up {
+  animation: cfCaptionSlideUp 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-caption-bounce {
+  animation: cfCaptionBounce 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* SLYCE smooth compositor-only animated hover interactions */
+.slyce-hover-card {
+  transition:
+    transform 190ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 190ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 190ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 190ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.slyce-hover-card:hover {
+  transform: translate3d(0, -3px, 0);
+  border-color: rgba(118, 87, 255, 0.45);
+  box-shadow: 0 14px 34px -14px rgba(32, 199, 217, 0.22), 0 8px 20px -12px rgba(118, 87, 255, 0.32);
+}
+
+.slyce-hover-lift {
+  transition:
+    transform 170ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 170ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 170ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 170ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.slyce-hover-lift:hover {
+  transform: translate3d(0, -2px, 0) scale(1.015);
+  box-shadow: 0 10px 26px -10px rgba(118, 87, 255, 0.45);
+}
+
+.slyce-hover-lift:active {
+  transform: translate3d(0, 0, 0) scale(0.99);
+}
+
+.slyce-nav-link {
+  position: relative;
+  transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slyce-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #7657FF, #20C7D9);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition: transform 190ms cubic-bezier(0.16, 1, 0.3, 1), opacity 190ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slyce-nav-link:hover {
+  transform: translate3d(0, -1px, 0);
+}
+
+.slyce-nav-link:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-caption-fade,
+  .animate-caption-pop,
+  .animate-caption-slide-up,
+  .animate-caption-bounce,
+  .slyce-hover-card,
+  .slyce-hover-lift,
+  .slyce-nav-link,
+  .slyce-nav-link::after {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+}
