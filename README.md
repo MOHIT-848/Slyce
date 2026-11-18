@@ -1,8 +1,8 @@
-# ClipForge AI
+# Slyce
 
 **Turn Long Videos Into Powerful Short Stories.**
 
-ClipForge AI is an autonomous long-video to short-form content repurposing agent designed around a **human-in-the-loop** editorial workflow. Creators upload an MP4 or MOV video, inspect the timestamped speech transcript, review 3–5 explainably ranked highlight candidates, customize vertical 9:16 framing and captions, and download playable MP4 and SRT files.
+Slyce is an autonomous long-video to short-form content repurposing agent designed around a **human-in-the-loop** editorial workflow. Creators upload an MP4 or MOV video, inspect the timestamped speech transcript, review 3–5 explainably ranked highlight candidates, customize vertical 9:16 framing and captions, and download playable MP4 and SRT files.
 
 ---
 
